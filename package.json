@@ -1,0 +1,21 @@
+{
+  "name": "alipay",
+  "version": "1.0.0",
+  "description": "alipay nodejs api client",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./test/app.js",
+    "test": "mocha --recursive test/*.test.js"
+  },
+  "keywords": [
+    "alipay",
+    "api",
+    "支付宝"
+  ],
+  "author": "WuHaolin",
+  "license": "ISC",
+  "devDependencies": {
+    "body-parser": "1.14.1",
+    "express": "4.13.3"
+  }
+}
