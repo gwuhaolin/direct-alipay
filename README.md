@@ -1,5 +1,5 @@
 #支付宝 即时到账 NodeJS包
-###开始使用
+###集成到你的项目
 1.安装
 
     npm install direct-alipay    
@@ -44,3 +44,6 @@
         });
         res.end('');
     });
+    
+###运行测试
+仔细`npm start`后，用浏览器打开`localhost:3000`
