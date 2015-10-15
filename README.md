@@ -33,7 +33,7 @@
 5.用户支付完毕后,支付宝会发生通知到第2步配置的notify_url，在这里来判断订单是否成功支付
  
     app.get('/notify', function (req, res) {
-        var params = req.query;
+        var params = req.body;
         console.log(params);
         directAlipay.verity(params, function (err, result) {
             if (err) {
@@ -45,6 +45,7 @@
         res.end('');
     });
     
+支付宝回调通知见[官方文档](https://openhome.alipay.com/platform/document.htm#webApp-transPay-transpay-notify)
 ###运行测试
 仔细`npm start`后，用浏览器打开`localhost:3000`
 
@@ -87,7 +88,7 @@
 验证来自支付宝的通知是否合法
 
     app.get('/notify', function (req, res) {
-        var params = req.query;
+        var params = req.body;
         directAlipay.verity(params, function (err, result) {
             if (err) {
                 console.error(err);

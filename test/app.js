@@ -34,13 +34,13 @@ app.get('/pay', function (req, res) {
 });
 
 app.get('/notify', function (req, res) {
-    var params = req.query;
+    var params = req.body;
     console.log(params);
     alipay.verity(params, function (err, result) {
         if (err) {
             console.error(err);
         } else {
-            if(result===true){
+            if (result === true) {
                 //该通知是来自支付宝的合法通知
             }
         }
