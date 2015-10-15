@@ -11,6 +11,14 @@ var _basicConfig = {
     sign_type: 'MD5'
 };
 
+Object.prototype._assignMe = function (json) {
+    for (var key in json) {
+        if (json.hasOwnProperty(key)) {
+            this[key] = json[key];
+        }
+    }
+};
+
 /**
  * https GET 对应的url
  * @param url 要请求的url
@@ -59,11 +67,7 @@ function _buildSign(json) {
  * }
  */
 exports.config = function (params) {
-    for (var key in params) {
-        if (params.hasOwnProperty(key)) {
-            _basicConfig[key] = params[key];
-        }
-    }
+    _basicConfig._assignMe(params);
 };
 
 /**
@@ -78,20 +82,16 @@ exports.config = function (params) {
  * @returns {string} 支付宝支付请求URL 浏览器跳转到该url支付
  */
 exports.buildDirectPayURL = function (orderParams) {
-    var json = {};
-    //basic
-    json.service = 'create_direct_pay_by_user';
-    json._input_charset = _basicConfig._input_charset;
-    json.notify_url = _basicConfig.notify_url;
-    json.partner = _basicConfig.partner;
-    json.return_url = _basicConfig.return_url;
-    json.seller_email = _basicConfig.seller_email;
-    //order
-    json.payment_type = '1';
-    json.body = orderParams.body;
-    json.out_trade_no = orderParams.out_trade_no;
-    json.subject = orderParams.subject;
-    json.total_fee = orderParams.total_fee;
+    var json = {
+        service: 'create_direct_pay_by_user',
+        payment_type: '1',
+        _input_charset: _basicConfig._input_charset,
+        notify_url: _basicConfig.notify_url,
+        partner: _basicConfig.partner,
+        return_url: _basicConfig.return_url,
+        seller_email: _basicConfig.seller_email
+    };
+    json._assignMe(orderParams);
     //加入签名结果与签名方式
     json.sign = _buildSign(json);
     json.sign_type = _basicConfig.sign_type;

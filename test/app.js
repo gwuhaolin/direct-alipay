@@ -18,6 +18,7 @@ app.get('/', function (req, res) {
 
 app.post('/', function (req, res) {
     var params = req.body;
+    params.out_trade_no = Date.now().toString();
     var url = alipay.buildDirectPayURL(params);
     res.redirect(url);
 });

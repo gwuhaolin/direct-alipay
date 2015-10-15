@@ -1,7 +1,7 @@
 {
-  "name": "alipay",
+  "name": "direct-alipay",
   "version": "1.0.0",
-  "description": "alipay nodejs api client",
+  "description": "alipay direct pay nodejs api client",
   "main": "index.js",
   "scripts": {
     "start": "node ./test/app.js",
@@ -10,7 +10,7 @@
   "keywords": [
     "alipay",
     "api",
-    "支付宝"
+    "支付宝 即时到账"
   ],
   "author": "WuHaolin",
   "license": "ISC",
