@@ -40,7 +40,9 @@ app.get('/notify', function (req, res) {
         if (err) {
             console.error(err);
         } else {
-            console.log(result);
+            if(result===true){
+                //该通知是来自支付宝的合法通知
+            }
         }
     });
     res.end('');

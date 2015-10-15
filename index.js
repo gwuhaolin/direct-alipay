@@ -98,6 +98,11 @@ exports.buildDirectPayURL = function (orderParams) {
     return _basicConfig.alipay_gateway + querystring.stringify(json);
 };
 
+/**
+ * 验证来自支付宝的通知是否合法
+ * @param params 来自支付宝的通知参数
+ * @param callback err,result
+ */
 exports.verity = function (params, callback) {
     var paramsSign = params.sign;
     var buildSign = _buildSign(params);
