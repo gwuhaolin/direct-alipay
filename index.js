@@ -11,13 +11,13 @@ var _basicConfig = {
     sign_type: 'MD5'
 };
 
-Object.prototype._assignMe = function (json) {
+function _assignMe(me, json) {
     for (var key in json) {
         if (json.hasOwnProperty(key)) {
-            this[key] = json[key];
+            me[key] = json[key];
         }
     }
-};
+}
 
 /**
  * https GET 对应的url
@@ -67,7 +67,7 @@ function _buildSign(json) {
  * }
  */
 exports.config = function (params) {
-    _basicConfig._assignMe(params);
+    _assignMe(_basicConfig, params);
 };
 
 /**
@@ -91,7 +91,7 @@ exports.buildDirectPayURL = function (orderParams) {
         return_url: _basicConfig.return_url,
         seller_email: _basicConfig.seller_email
     };
-    json._assignMe(orderParams);
+    _assignMe(json, orderParams);
     //加入签名结果与签名方式
     json.sign = _buildSign(json);
     json.sign_type = _basicConfig.sign_type;
