@@ -8,8 +8,7 @@ alipay.config({
     seller_email: 'jyjjh@mail.ccnu.edu.cn',
     partner: '2088911275465084',
     key: 'tws3ri4d3sg8ohc4t7k9dnj8kumvia05',
-    notify_url: 'http://127.0.0.1:3000/notify',
-    return_url: 'http://127.0.0.1:3000/'
+    notify_url: 'http://127.0.0.1:3000/notify'
 });
 
 app.get('/', function (req, res) {
@@ -30,6 +29,7 @@ app.get('/pay', function (req, res) {
         body: 'body',
         total_fee: '1'
     });
+    console.log(url);
     res.redirect(url);
 });
 
