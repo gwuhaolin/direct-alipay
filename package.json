@@ -1,6 +1,6 @@
 {
   "name": "direct-alipay",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "alipay direct pay nodejs api client",
   "main": "index.js",
   "scripts": {
@@ -13,6 +13,14 @@
     "支付宝 即时到账"
   ],
   "author": "WuHaolin",
+  "bugs": {
+    "url": "https://github.com/gwuhaolin/direct-alipay/issues"
+  },
+  "homepage": "https://github.com/gwuhaolin/direct-alipay",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:gwuhaolin/direct-alipay.git"
+  },
   "license": "ISC",
   "devDependencies": {
     "body-parser": "1.14.1",
