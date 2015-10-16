@@ -11,8 +11,7 @@
         seller_email: 'jyjjh@mail.ccnu.edu.cn',
         partner: '2088911275465084',
         key: 'tws3ri4d3sg8ohc4t7k9dnj8kumvia05',
-        notify_url: 'http://127.0.0.1:3000/notify',
-        return_url: 'http://127.0.0.1:3000/'
+        return_url: 'http://127.0.0.1:3000/return'
     });    
     
 参数说明见[官方文档](https://openhome.alipay.com/platform/document.htm#webApp-directPay-API-direct)
@@ -30,16 +29,18 @@
 
     window.location.href = url;
     
-5.用户支付完毕后,支付宝会发生通知到第2步配置的notify_url，在这里来判断订单是否成功支付
+5.用户支付完毕后,会跳转到第2步配置的return_url，在这里来判断订单是否成功支付
  
-    app.get('/notify', function (req, res) {
-        var params = req.body;
-        console.log(params);
-        directAlipay.verity(params, function (err, result) {
+    app.get('/return', function (req, res) {
+        var params = req.query;
+        alipay.verity(params, function (err, result) {
             if (err) {
                 console.error(err);
             } else {
-            console.log(result);
+                if (result === true) {
+                res.reply('支付成功');
+                    //该通知是来自支付宝的合法通知
+                }
             }
         });
         res.end('');

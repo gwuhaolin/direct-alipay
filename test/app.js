@@ -1,14 +1,12 @@
 'use strict';
 var express = require('express');
-var bodyParser = require('body-parser');
 var alipay = require('../index');
 var app = express();
-app.use(bodyParser.urlencoded({extended: true}));
 alipay.config({
     seller_email: 'jyjjh@mail.ccnu.edu.cn',
     partner: '2088911275465084',
     key: 'tws3ri4d3sg8ohc4t7k9dnj8kumvia05',
-    notify_url: 'http://127.0.0.1:3000/notify'
+    return_url: 'http://127.0.0.1:3000/return'
 });
 
 app.get('/', function (req, res) {
@@ -33,14 +31,14 @@ app.get('/pay', function (req, res) {
     res.redirect(url);
 });
 
-app.get('/notify', function (req, res) {
-    var params = req.body;
-    console.log(params);
+app.get('/return', function (req, res) {
+    var params = req.query;
     alipay.verity(params, function (err, result) {
         if (err) {
             console.error(err);
         } else {
             if (result === true) {
+                res.reply('支付成功');
                 //该通知是来自支付宝的合法通知
             }
         }
