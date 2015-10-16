@@ -1,6 +1,6 @@
 {
   "name": "direct-alipay",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "alipay direct pay nodejs api client",
   "main": "index.js",
   "scripts": {
