@@ -117,7 +117,7 @@ exports.verity = function (params, callback) {
             if (err) {
                 callback(err);
             } else {
-                if (data == 'true') {
+                if (data.toString() === 'true') {
                     callback(null, true);
                 } else {
                     callback('error:验证失败');
