@@ -103,7 +103,7 @@ exports.buildDirectPayURL = function (orderParams) {
  * @param params 来自支付宝的通知参数
  * @param callback err,result
  */
-exports.verity = function (params, callback) {
+exports.verify = function (params, callback) {
     var paramsSign = params.sign;
     var buildSign = _buildSign(params);
     if (paramsSign === buildSign) {
