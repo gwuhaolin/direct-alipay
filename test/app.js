@@ -33,7 +33,7 @@ app.get('/pay', function (req, res) {
 
 app.get('/return', function (req, res) {
     var params = req.query;
-    alipay.verity(params, function (err, result) {
+    alipay.verify(params, function (err, result) {
         if (err) {
             console.error(err);
         } else {
