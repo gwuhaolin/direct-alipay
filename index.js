@@ -3,7 +3,7 @@ var https = require('https');
 var crypto = require('crypto');
 var querystring = require('querystring');
 
-var _basicConfig = {
+var basicConfig = {
     alipay_gateway: 'https://mapi.alipay.com/gateway.do?',
     //字符编码格式
     _input_charset: 'UTF-8',
@@ -11,20 +11,12 @@ var _basicConfig = {
     sign_type: 'MD5'
 };
 
-function _assignMe(me, json) {
-    for (var key in json) {
-        if (json.hasOwnProperty(key)) {
-            me[key] = json[key];
-        }
-    }
-}
-
 /**
  * https GET 对应的url
  * @param url 要请求的url
  * @param callback (error,data)
  */
-function _requestUrl(url, callback) {
+function requestUrl(url, callback) {
     var req = https.get(url, function (res) {
         res.on('data', function (data) {
             callback(null, data);
@@ -41,7 +33,7 @@ function _requestUrl(url, callback) {
  * @param json
  * @returns {string}
  */
-function _buildSign(json) {
+function buildSign(json) {
     var keys = Object.keys(json);
     keys = keys.sort();
     var map = {};
@@ -51,8 +43,8 @@ function _buildSign(json) {
             map[key] = json[key];
         }
     }
-    var str = querystring.unescape(querystring.stringify(map)) + _basicConfig.key;
-    return crypto.createHash(_basicConfig.sign_type).update(str, _basicConfig._input_charset).digest('hex');
+    var str = querystring.unescape(querystring.stringify(map)) + basicConfig.key;
+    return crypto.createHash(basicConfig.sign_type).update(str, basicConfig._input_charset).digest('hex');
 }
 
 /**
@@ -67,7 +59,7 @@ function _buildSign(json) {
  * }
  */
 exports.config = function (params) {
-    _assignMe(_basicConfig, params);
+    Object.assign(basicConfig, params);
 };
 
 /**
@@ -85,17 +77,17 @@ exports.buildDirectPayURL = function (orderParams) {
     var json = {
         service: 'create_direct_pay_by_user',
         payment_type: '1',
-        _input_charset: _basicConfig._input_charset,
-        notify_url: _basicConfig.notify_url,
-        partner: _basicConfig.partner,
-        return_url: _basicConfig.return_url,
-        seller_email: _basicConfig.seller_email
+        _input_charset: basicConfig._input_charset,
+        notify_url: basicConfig.notify_url,
+        partner: basicConfig.partner,
+        return_url: basicConfig.return_url,
+        seller_email: basicConfig.seller_email
     };
-    _assignMe(json, orderParams);
+    Object.assign(json, orderParams);
     //加入签名结果与签名方式
-    json.sign = _buildSign(json);
-    json.sign_type = _basicConfig.sign_type;
-    return _basicConfig.alipay_gateway + querystring.stringify(json);
+    json.sign = buildSign(json);
+    json.sign_type = basicConfig.sign_type;
+    return basicConfig.alipay_gateway + querystring.stringify(json);
 };
 
 /**
@@ -105,15 +97,15 @@ exports.buildDirectPayURL = function (orderParams) {
  */
 exports.verify = function (params, callback) {
     var paramsSign = params.sign;
-    var buildSign = _buildSign(params);
+    var buildSign = buildSign(params);
     if (paramsSign === buildSign) {
         var urlParams = {
             service: 'notify_verify',
-            partner: _basicConfig.partner,
+            partner: basicConfig.partner,
             notify_id: params['notify_id']
         };
-        var url = _basicConfig.alipay_gateway + querystring.stringify(urlParams);
-        _requestUrl(url, function (err, data) {
+        var url = basicConfig.alipay_gateway + querystring.stringify(urlParams);
+        requestUrl(url, function (err, data) {
             if (err) {
                 callback(err);
             } else {
