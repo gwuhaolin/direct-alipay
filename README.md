@@ -1,3 +1,7 @@
+[![Npm Package](https://img.shields.io/npm/v/direct-alipay.svg?style=flat-square)](https://www.npmjs.com/package/direct-alipay)
+[![Npm Downloads](http://img.shields.io/npm/dm/direct-alipay.svg?style=flat-square)](https://www.npmjs.com/package/direct-alipay)
+[![Dependency Status](https://david-dm.org/gwuhaolin/direct-alipay.svg?style=flat-square)](https://npmjs.org/package/direct-alipay)
+
 # 支付宝 即时到账 NodeJS包
 
 ## 集成到你的项目
