@@ -1,5 +1,5 @@
-#支付宝 即时到账 NodeJS包
-###集成到你的项目
+# 支付宝 即时到账 NodeJS包
+### 集成到你的项目
 1.安装
 
     npm install direct-alipay    
