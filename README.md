@@ -1,10 +1,10 @@
 # 支付宝 即时到账 NodeJS包
 ### 集成到你的项目
-1.安装
+#### 1.安装
 
     npm install direct-alipay    
-    
-2.配置支付宝参数
+    
+#### 2.配置支付宝参数
    
     var directAlipay = require('direct-alipay');
     directAlipay.config({
@@ -15,8 +15,8 @@
     });    
     
 参数说明见[官方文档](https://openhome.alipay.com/platform/document.htm#webApp-directPay-API-direct)
-    
-3.传入订单参数,生成支付跳转URL
+    
+#### 3.传入订单参数,生成支付跳转URL
    
     var url = directAlipay.buildDirectPayURL({
         out_trade_no: 'out_trade_no',
@@ -24,12 +24,12 @@
         body: 'body',
         total_fee: '1'
     });
-   
-4.引导用户跳转到获得的URL，跳转到支付宝支付界面
+   
+#### 4.引导用户跳转到获得的URL，跳转到支付宝支付界面
 
     window.location.href = url;
-    
-5.用户支付完毕后,会跳转到第2步配置的return_url，在这里来判断订单是否成功支付
+    
+#### 5.用户支付完毕后,会跳转到第2步配置的return_url，在这里来判断订单是否成功支付
  
     app.get('/return', function (req, res) {
         var params = req.query;
@@ -47,10 +47,11 @@
     });
     
 支付宝回调通知见[官方文档](https://openhome.alipay.com/platform/document.htm#webApp-transPay-transpay-notify)
-###运行测试
+
+### 运行测试
 仔细`npm start`后，用浏览器打开`localhost:3000`
 
-###文档
+### 文档
 ##### `directAlipay`
 所有方法的入口
 
