@@ -2,7 +2,7 @@
 [![Npm Downloads](http://img.shields.io/npm/dm/direct-alipay.svg?style=flat-square)](https://www.npmjs.com/package/direct-alipay)
 [![Dependency Status](https://david-dm.org/gwuhaolin/direct-alipay.svg?style=flat-square)](https://npmjs.org/package/direct-alipay)
 
-# 支付宝 即时到账 NodeJS包
+# 支付宝 即时到账 NodeJS包 [demo](http://ccnu-aa.leanapp.cn/)
 
 ## 集成到你的项目
 
