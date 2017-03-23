@@ -97,8 +97,8 @@ exports.buildDirectPayURL = function (orderParams) {
  */
 exports.verify = function (params, callback) {
     var paramsSign = params.sign;
-    var buildSign = buildSign(params);
-    if (paramsSign === buildSign) {
+    var buildSignVar = buildSign(params);
+    if (paramsSign === buildSignVar) {
         var urlParams = {
             service: 'notify_verify',
             partner: basicConfig.partner,
