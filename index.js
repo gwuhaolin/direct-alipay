@@ -13,19 +13,21 @@ var basicConfig = {
 
 /**
  * https GET 对应的url
- * @param url 要请求的url
- * @param callback (error,data)
+ * @param url  @param url 要请求的url
+ * @returns {Promise}
  */
-function requestUrl(url, callback) {
-    var req = https.get(url, function (res) {
-        res.on('data', function (data) {
-            callback(null, data);
+function httpsGET(url) {
+    return new Promise(function (resolve, reject) {
+        var req = https.get(url, function (res) {
+            res.on('data', function (data) {
+                resolve(data);
+            });
         });
+        req.on('error', function (err) {
+            reject(err);
+        });
+        req.end();
     });
-    req.on('error', function (err) {
-        callback(err);
-    });
-    req.end();
 }
 
 /**
@@ -93,30 +95,30 @@ exports.buildDirectPayURL = function (orderParams) {
 /**
  * 验证来自支付宝的通知是否合法
  * @param params 来自支付宝的通知参数
- * @param callback err,result
+ * @returns {Promise} 验证通过时resolve，失败时reject
  */
-exports.verify = function (params, callback) {
-    var paramsSign = params.sign;
-    var buildSignVar = buildSign(params);
-    if (paramsSign === buildSignVar) {
-        var urlParams = {
-            service: 'notify_verify',
-            partner: basicConfig.partner,
-            notify_id: params['notify_id']
-        };
-        var url = basicConfig.alipay_gateway + querystring.stringify(urlParams);
-        requestUrl(url, function (err, data) {
-            if (err) {
-                callback(err);
-            } else {
+exports.verify = function (params) {
+    return new Promise(function (resolve, reject) {
+        var paramsSign = params.sign;
+        var realSign = buildSign(params);
+        if (paramsSign === realSign) {
+            var url = basicConfig.alipay_gateway +
+                querystring.stringify({
+                    service: 'notify_verify',
+                    partner: basicConfig.partner,
+                    notify_id: params['notify_id']
+                });
+            httpsGET(url).then(function (data) {
                 if (data.toString() === 'true') {
-                    callback(null, true);
+                    resolve(true);
                 } else {
-                    callback('error:验证失败');
+                    reject('来自alipay接口的结果为:验证结果不合法');
                 }
-            }
-        });
-    } else {
-        callback('error:sign验证不通过');
-    }
+            }).catch(function (err) {
+                reject('请求alipay接口发生网络错误:' + JSON.stringify(err))
+            });
+        } else {
+            reject('sign验证不相等: ' + paramsSign + ' !== ' + realSign);
+        }
+    });
 };

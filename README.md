@@ -22,7 +22,7 @@
     }); 
 ```   
     
-参数说明见[官方文档](https://openhome.alipay.com/platform/document.htm#webApp-directPay-API-direct)
+参数说明见[支付宝官方文档](https://openhome.alipay.com/platform/document.htm#webApp-directPay-API-direct)
     
 #### 3.传入订单参数,生成支付跳转URL
 ```js
@@ -43,17 +43,11 @@
 ```js
     app.get('/return', function (req, res) {
         var params = req.query;
-        alipay.verity(params, function (err, result) {
-            if (err) {
-                console.error(err);
-            } else {
-                if (result === true) {
-                res.reply('支付成功');
-                    //该通知是来自支付宝的合法通知
-                }
-            }
+        directAlipay.verity(params).then(function() {
+                  //该通知是来自支付宝的合法通知
+        }).catch(function(err) {
+            console.error(err);
         });
-        res.end('');
     });
 ```
     
@@ -102,20 +96,15 @@
 
 返回支付宝支付请求URL 浏览器跳转到该url支付
 
-##### `directAlipay.verity(params, callback)`
+##### `directAlipay.verity(params)`
 验证来自支付宝的通知是否合法
 ```js
     app.get('/notify', function (req, res) {
         var params = req.body;
-        directAlipay.verity(params, function (err, result) {
-            if (err) {
-                console.error(err);
-            } else {
-                if(result===true){
-                    //该通知是来自支付宝的合法通知
-                }
-            }
-        });
-        res.end('');
+        directAlipay.verity(params).then(function() {
+          //该通知是来自支付宝的合法通知
+        }).catch(function(err) {
+          console.error(err);
+        })
     });
 ```
