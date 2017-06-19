@@ -43,7 +43,7 @@
 ```js
     app.get('/return', function (req, res) {
         var params = req.query;
-        directAlipay.verity(params).then(function() {
+        directAlipay.verify(params).then(function() {
                   //该通知是来自支付宝的合法通知
         }).catch(function(err) {
             console.error(err);
@@ -96,12 +96,12 @@
 
 返回支付宝支付请求URL 浏览器跳转到该url支付
 
-##### `directAlipay.verity(params)`
+##### `directAlipay.verify(params)`
 验证来自支付宝的通知是否合法
 ```js
     app.get('/notify', function (req, res) {
         var params = req.body;
-        directAlipay.verity(params).then(function() {
+        directAlipay.verify(params).then(function() {
           //该通知是来自支付宝的合法通知
         }).catch(function(err) {
           console.error(err);
