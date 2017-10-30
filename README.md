@@ -4,6 +4,10 @@
 
 # 支付宝 即时到账 NodeJS包 [demo](http://ccnu-aa.leanapp.cn/)
 
+<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/3bvxELAxnq8r4wheFyRkED8U/gwuhaolin/direct-alipay'>
+  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/3bvxELAxnq8r4wheFyRkED8U/gwuhaolin/direct-alipay.svg' />
+</a>
+
 ## 集成到你的项目
 
 #### 1.安装
